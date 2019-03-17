@@ -27,7 +27,7 @@ class Game
 
         void update();
         void draw();
-        
+
         void drawPlayScreen();
         void drawPauseScreen();
         void drawStartScreen();
@@ -37,6 +37,10 @@ class Game
         EnemyHandler *enemyHandler;
 
         sf::RectangleShape pauseScreen;
+        sf::Font font;
+        sf::Text startText;
+        sf::Text pauseText;
+        sf::Text gameoverText;
 
         
 };

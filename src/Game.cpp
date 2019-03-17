@@ -7,12 +7,9 @@ Game::Game()
     windowHeight = 480;
     windowName = "Roger Dodger";
     isRunning = true;
-    game_state = GAME_STATE::PLAYING; // TODO: debugging change to START later
+    game_state = GAME_STATE::START;
 
     fpsLimit = 60;
-
-    pauseScreen.setSize(sf::Vector2f(640, 480));
-    pauseScreen.setFillColor(sf::Color(200, 200, 200, 128));
 }
 
 Game::~Game()
@@ -31,6 +28,35 @@ void Game::init()
 
     enemyHandler = new EnemyHandler();
     enemyHandler->init("./assets/Enemy.png");
+
+    pauseScreen.setSize(sf::Vector2f(640, 480));
+    pauseScreen.setFillColor(sf::Color(200, 200, 200, 128));
+
+    if(!font.loadFromFile("./assets/Pixel12x10.ttf"))
+        printf("Problem loading font!\n");
+    else
+    {
+        startText.setFont(font);
+        pauseText.setFont(font);
+        gameoverText.setFont(font);
+
+        startText.setString("ROGER DODGER\nPRESS ENTER");
+        pauseText.setString("PAUSE");
+        gameoverText.setString("GAME OVER");
+
+        startText.setCharacterSize(24);
+        pauseText.setCharacterSize(24);
+        gameoverText.setCharacterSize(24);
+
+        startText.setFillColor(sf::Color::Green);
+        pauseText.setFillColor(sf::Color::Green);
+        gameoverText.setFillColor(sf::Color::White);
+
+        startText.setPosition(220, 200);
+        pauseText.setPosition(280, 200);
+        gameoverText.setPosition(260, 200);
+    }
+    
 }
 
 void Game::run()
@@ -66,6 +92,11 @@ void Game::update()
                 else if(game_state == GAME_STATE::START)
                     isRunning = false; // Close window if they hit escape at the start
             }
+
+            // Start game from Start Screen
+            if(event.key.code == sf::Keyboard::Return)
+                if(game_state == GAME_STATE::START)
+                    game_state = GAME_STATE::PLAYING;
         }
     }
 
@@ -120,19 +151,19 @@ void Game::drawPlayScreen()
 // draw the text PAUSED
 void Game::drawPauseScreen()
 {
-    //window->draw(pauseText);
     window->draw(pauseScreen);
+    window->draw(pauseText);
 }
 
 // Show title screen
 void Game::drawStartScreen()
 {
-    
+    window->draw(startText);
 }
 
 // Draw the text GAME OVER
 // Draw the text replay? Press enter
 void Game::drawGameOverScreen()
 {
-    
+    window->draw(gameoverText);
 }
