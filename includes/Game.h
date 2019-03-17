@@ -27,7 +27,9 @@ class Game
 
         void update();
         void draw();
+        void reset();
 
+        // Screen Drawing Routines
         void drawPlayScreen();
         void drawPauseScreen();
         void drawStartScreen();

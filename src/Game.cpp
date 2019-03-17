@@ -54,7 +54,7 @@ void Game::init()
 
         startText.setPosition(220, 200);
         pauseText.setPosition(280, 200);
-        gameoverText.setPosition(260, 200);
+        gameoverText.setPosition(200, 200);
     }
     
 }
@@ -89,19 +89,31 @@ void Game::update()
                     game_state = GAME_STATE::PAUSE;
                 else if(game_state == GAME_STATE::PAUSE)
                     game_state = GAME_STATE::PLAYING;
-                else if(game_state == GAME_STATE::START)
+                else if(game_state == GAME_STATE::START || game_state == GAME_STATE::GAME_OVER)
                     isRunning = false; // Close window if they hit escape at the start
             }
 
             // Start game from Start Screen
             if(event.key.code == sf::Keyboard::Return)
-                if(game_state == GAME_STATE::START || game_state == GAME_STATE::GAME_OVER)
+            {
+                if(game_state == GAME_STATE::START)
                     game_state = GAME_STATE::PLAYING;
+                else if (game_state == GAME_STATE::GAME_OVER)
+                    reset();
+            }
         }
     }
 
     if(game_state == GAME_STATE::PLAYING)
     {
+        // Collision testing
+        for(int i = 0; i < enemyHandler->getPoolSize(); i++)
+        {
+            sf::Rect<float> enemyBounds(enemyHandler->getEnemy(i)->getSprite().getGlobalBounds());
+            if(player->getSprite().getGlobalBounds().intersects(enemyBounds))
+                player->hit();
+        }
+        
         player->update();
         if(player->getHealth() <= 0)
             game_state = GAME_STATE::GAME_OVER; // change to game over screen
@@ -131,6 +143,13 @@ void Game::draw()
             break;
     }
     window->display();
+}
+
+void Game::reset()
+{
+    player->reset();
+    enemyHandler->resetPool();
+    game_state = GAME_STATE::PLAYING;
 }
 
 void Game::quit()

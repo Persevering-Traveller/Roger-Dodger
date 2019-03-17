@@ -46,3 +46,9 @@ Enemy* EnemyHandler::getEnemy(int which)
 {
     return &enemyPool[which];
 }
+
+void EnemyHandler::resetPool()
+{
+    for(int i = 0; i < MAX_POOL_SIZE; i++)
+        enemyPool[i].reset();
+}

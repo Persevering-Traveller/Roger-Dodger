@@ -13,6 +13,7 @@ class EnemyHandler
         void drawPool();
         int getPoolSize();
         Enemy* getEnemy(int which);
+        void resetPool();
 
     private:
         // List that will hold the enemyPool at a MAX_POOL_SIZE
