@@ -42,7 +42,7 @@ void Game::init()
 
         startText.setString("ROGER DODGER\nPRESS ENTER");
         pauseText.setString("PAUSE");
-        gameoverText.setString("GAME OVER");
+        gameoverText.setString("GAME OVER\nENTER TO TRY AGAIN\nESCAPE TO CLOSE");
 
         startText.setCharacterSize(24);
         pauseText.setCharacterSize(24);
@@ -95,7 +95,7 @@ void Game::update()
 
             // Start game from Start Screen
             if(event.key.code == sf::Keyboard::Return)
-                if(game_state == GAME_STATE::START)
+                if(game_state == GAME_STATE::START || game_state == GAME_STATE::GAME_OVER)
                     game_state = GAME_STATE::PLAYING;
         }
     }
@@ -161,8 +161,7 @@ void Game::drawStartScreen()
     window->draw(startText);
 }
 
-// Draw the text GAME OVER
-// Draw the text replay? Press enter
+// Draw game over text
 void Game::drawGameOverScreen()
 {
     window->draw(gameoverText);
