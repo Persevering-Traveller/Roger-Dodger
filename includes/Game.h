@@ -40,6 +40,7 @@ class Game
 
         sf::RectangleShape pauseScreen;
         sf::Font font;
+        sf::Text hud;
         sf::Text startText;
         sf::Text pauseText;
         sf::Text gameoverText;

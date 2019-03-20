@@ -37,22 +37,27 @@ void Game::init()
         printf("Problem loading font!\n");
     else
     {
+        hud.setFont(font);
         startText.setFont(font);
         pauseText.setFont(font);
         gameoverText.setFont(font);
 
+        hud.setString("Hits Left: " + std::to_string(player->getHealth()));
         startText.setString("ROGER DODGER\nPRESS ENTER");
         pauseText.setString("PAUSE");
         gameoverText.setString("GAME OVER\nENTER TO TRY AGAIN\nESCAPE TO CLOSE");
 
+        hud.setCharacterSize(16);
         startText.setCharacterSize(24);
         pauseText.setCharacterSize(24);
         gameoverText.setCharacterSize(24);
 
+        hud.setFillColor(sf::Color::Green);
         startText.setFillColor(sf::Color::Green);
         pauseText.setFillColor(sf::Color::Green);
         gameoverText.setFillColor(sf::Color::White);
 
+        hud.setPosition(20, 450);
         startText.setPosition(220, 200);
         pauseText.setPosition(280, 200);
         gameoverText.setPosition(200, 200);
@@ -116,6 +121,7 @@ void Game::update()
         }
         
         player->update();
+        hud.setString("Hits Left: " + std::to_string(player->getHealth()));
         if(player->getHealth() <= 0)
             gameState = GAME_STATE::GAME_OVER; // change to game over screen
         
@@ -165,6 +171,7 @@ void Game::drawPlayScreen()
         window->draw(enemyHandler->getEnemy(i)->getSprite());
     }
     window->draw(player->getSprite());
+    window->draw(hud);
 }
 
 // Draw a grey translucent rectangle over screen
