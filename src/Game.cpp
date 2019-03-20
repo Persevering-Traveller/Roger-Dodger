@@ -16,6 +16,7 @@ Game::~Game()
 {
     delete window;
     delete player;
+    delete enemyHandler;
 }
 
 void Game::init()

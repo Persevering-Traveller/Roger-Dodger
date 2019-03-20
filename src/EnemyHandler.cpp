@@ -16,9 +16,9 @@ void EnemyHandler::init(std::string fileLoc)
         printf("Error loading enemy shared texture\n");
     else
     {
-        for(int i = 0; i < MAX_POOL_SIZE; i++)
+        for(auto &enemy : enemyPool)
         {
-            enemyPool[i].init(sharedTexture);
+            enemy.init(sharedTexture);
         }
     }
     
@@ -26,9 +26,9 @@ void EnemyHandler::init(std::string fileLoc)
 
 void EnemyHandler::updatePool()
 {
-    for(int i = 0; i < MAX_POOL_SIZE; i++)
+    for(auto &enemy : enemyPool)
     {
-        enemyPool[i].update();
+        enemy.update();
     }
 }
 
@@ -49,6 +49,6 @@ Enemy* EnemyHandler::getEnemy(int which)
 
 void EnemyHandler::resetPool()
 {
-    for(int i = 0; i < MAX_POOL_SIZE; i++)
-        enemyPool[i].reset();
+    for(auto &enemy : enemyPool)
+        enemy.reset();
 }
