@@ -21,7 +21,7 @@ class Game
         int windowWidth, windowHeight;
         std::string windowName;
         bool isRunning;
-        GAME_STATE game_state;
+        GAME_STATE gameState;
 
         int fpsLimit;
 

@@ -7,7 +7,7 @@ Game::Game()
     windowHeight = 480;
     windowName = "Roger Dodger";
     isRunning = true;
-    game_state = GAME_STATE::START;
+    gameState = GAME_STATE::START;
 
     fpsLimit = 60;
 }
@@ -86,26 +86,26 @@ void Game::update()
         {
             if(event.key.code == sf::Keyboard::Escape)
             {
-                if(game_state == GAME_STATE::PLAYING)
-                    game_state = GAME_STATE::PAUSE;
-                else if(game_state == GAME_STATE::PAUSE)
-                    game_state = GAME_STATE::PLAYING;
-                else if(game_state == GAME_STATE::START || game_state == GAME_STATE::GAME_OVER)
+                if(gameState == GAME_STATE::PLAYING)
+                    gameState = GAME_STATE::PAUSE;
+                else if(gameState == GAME_STATE::PAUSE)
+                    gameState = GAME_STATE::PLAYING;
+                else if(gameState == GAME_STATE::START || gameState == GAME_STATE::GAME_OVER)
                     isRunning = false; // Close window if they hit escape at the start
             }
 
             // Start game from Start Screen
             if(event.key.code == sf::Keyboard::Return)
             {
-                if(game_state == GAME_STATE::START)
-                    game_state = GAME_STATE::PLAYING;
-                else if (game_state == GAME_STATE::GAME_OVER)
+                if(gameState == GAME_STATE::START)
+                    gameState = GAME_STATE::PLAYING;
+                else if (gameState == GAME_STATE::GAME_OVER)
                     reset();
             }
         }
     }
 
-    if(game_state == GAME_STATE::PLAYING)
+    if(gameState == GAME_STATE::PLAYING)
     {
         // Collision testing
         for(int i = 0; i < enemyHandler->getPoolSize(); i++)
@@ -117,7 +117,7 @@ void Game::update()
         
         player->update();
         if(player->getHealth() <= 0)
-            game_state = GAME_STATE::GAME_OVER; // change to game over screen
+            gameState = GAME_STATE::GAME_OVER; // change to game over screen
         
         enemyHandler->updatePool();
     }
@@ -126,7 +126,7 @@ void Game::update()
 void Game::draw()
 {
     window->clear();
-    switch(game_state)
+    switch(gameState)
     {
         case GAME_STATE::START:
             drawStartScreen();
@@ -150,7 +150,7 @@ void Game::reset()
 {
     player->reset();
     enemyHandler->resetPool();
-    game_state = GAME_STATE::PLAYING;
+    gameState = GAME_STATE::PLAYING;
 }
 
 void Game::quit()
