@@ -60,6 +60,9 @@ void Player::controls()
     }
 }
 
+// subtract one health
+// go invincible for 1 second
+// make slightly transparent
 void Player::damage()
 {
     // if player is hit by enemy
@@ -69,14 +72,17 @@ void Player::damage()
         if(timer == 0)
             health--;
         timer++;
+        // Make slightly transparent while hurt and invincible
+        sprite.setColor(sf::Color(255, 255, 255, 128));
     }
     if(timer >= invicibilityTime)
     {
         hurt = false;
         timer = 0;
+        // Set back to original color
+        sprite.setColor(sf::Color::White);
     }
-    // subtract one health
-    // go invincible for 1 second
+   
 }
 
 // Set back to starting values
