@@ -10,6 +10,10 @@ Game::Game()
     gameState = GAME_STATE::START;
 
     fpsLimit = 60;
+    score = 0;
+    timer = 0;
+    scoreTickUp = fpsLimit * 2; // Two seconds
+    gameoverString = "GAME OVER\nENTER TO TRY AGAIN\nESCAPE TO CLOSE";
 }
 
 Game::~Game()
@@ -38,26 +42,31 @@ void Game::init()
     else
     {
         hud.setFont(font);
+        scoreText.setFont(font);
         startText.setFont(font);
         pauseText.setFont(font);
         gameoverText.setFont(font);
 
         hud.setString("Hits Left: " + std::to_string(player->getHealth()));
+        scoreText.setString("SCORE: " + std::to_string(score));
         startText.setString("ROGER DODGER\nPRESS ENTER");
         pauseText.setString("PAUSE");
-        gameoverText.setString("GAME OVER\nENTER TO TRY AGAIN\nESCAPE TO CLOSE");
+        gameoverText.setString(gameoverString);
 
         hud.setCharacterSize(16);
+        scoreText.setCharacterSize(20);
         startText.setCharacterSize(24);
         pauseText.setCharacterSize(24);
         gameoverText.setCharacterSize(24);
 
         hud.setFillColor(sf::Color::Green);
+        scoreText.setFillColor(sf::Color::White);
         startText.setFillColor(sf::Color::Green);
         pauseText.setFillColor(sf::Color::Green);
         gameoverText.setFillColor(sf::Color::White);
 
         hud.setPosition(20, 450);
+        scoreText.setPosition(250, 30);
         startText.setPosition(220, 200);
         pauseText.setPosition(280, 200);
         gameoverText.setPosition(200, 200);
@@ -122,8 +131,20 @@ void Game::update()
         
         player->update();
         hud.setString("Hits Left: " + std::to_string(player->getHealth()));
+        scoreText.setString("SCORE: " + std::to_string(score));
         if(player->getHealth() <= 0)
+        {
             gameState = GAME_STATE::GAME_OVER; // change to game over screen
+            gameoverText.setString(gameoverString + "\n\nFINAL SCORE: " + std::to_string(score));
+        }
+        else
+        {
+            timer++;
+            if(timer % scoreTickUp == 0)
+            {
+                score += 10;
+            }
+        }
         
         enemyHandler->updatePool();
     }
@@ -157,6 +178,8 @@ void Game::reset()
     player->reset();
     enemyHandler->resetPool();
     gameState = GAME_STATE::PLAYING;
+    score = 0;
+    timer = 0;
 }
 
 void Game::quit()
@@ -171,6 +194,7 @@ void Game::drawPlayScreen()
         window->draw(enemyHandler->getEnemy(i)->getSprite());
     }
     window->draw(player->getSprite());
+    window->draw(scoreText);
     window->draw(hud);
 }
 

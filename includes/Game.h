@@ -24,6 +24,10 @@ class Game
         GAME_STATE gameState;
 
         int fpsLimit;
+        int score;
+        int timer;
+        int scoreTickUp;
+        std::string gameoverString;
 
         void update();
         void draw();
@@ -41,6 +45,7 @@ class Game
         sf::RectangleShape pauseScreen;
         sf::Font font;
         sf::Text hud;
+        sf::Text scoreText;
         sf::Text startText;
         sf::Text pauseText;
         sf::Text gameoverText;
