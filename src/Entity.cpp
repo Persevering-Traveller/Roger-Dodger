@@ -1,15 +1,5 @@
 #include "Entity.h"
 
-Entity::Entity()
-{
-    //ctor
-}
-
-Entity::~Entity()
-{
-    //dtor
-}
-
 sf::Sprite Entity::getSprite()
 {
     return sprite;
@@ -26,7 +16,3 @@ void Entity::setSprite(std::string fileLocation)
         sprite.setTexture(texture);
     }
 }
-
-// Virtual functions
-void Entity::update(){}
-void Entity::draw(){}

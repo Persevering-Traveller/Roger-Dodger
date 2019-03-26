@@ -6,11 +6,6 @@ Enemy::Enemy()
     reset(); // You can't reset something new, but it makes sense :)
 }
 
-Enemy::~Enemy()
-{
-
-}
-
 void Enemy::init(sf::Texture &tex)
 {
     sprite.setTexture(tex);
@@ -33,11 +28,6 @@ void Enemy::update()
         awake = false;
         reset();
     }
-}
-
-void Enemy::draw()
-{
-
 }
 
 void Enemy::reset()

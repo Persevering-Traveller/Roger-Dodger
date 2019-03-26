@@ -6,10 +6,8 @@ class Enemy : public Entity
 {
     public:
         Enemy();
-        ~Enemy();
         void init(sf::Texture &tex);
         void update();
-        void draw();
         void reset();
 
     private:

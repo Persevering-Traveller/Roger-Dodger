@@ -7,11 +7,10 @@
 class EnemyHandler
 {
     public:
-        EnemyHandler();
-        ~EnemyHandler();
+        // Everything in a constructor is done better
+        // in this init
         void init(std::string fileLoc);
         void updatePool();
-        void drawPool();
         int getPoolSize();
         Enemy* getEnemy(int which);
         void resetPool();

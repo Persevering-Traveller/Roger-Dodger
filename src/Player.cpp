@@ -10,11 +10,6 @@ Player::Player()
     position = sf::Vector2f(320, 400);
 }
 
-Player::~Player()
-{
-    //dtor
-}
-
 void Player::init(std::string fileLoc)
 {
     setSprite(fileLoc);
@@ -27,12 +22,6 @@ void Player::update()
     controls();
     // Damage control
     damage();
-}
-
-// TODO: Consider deleting since we have "getSprite"
-void Player::draw()
-{
-
 }
 
 int Player::getHealth()

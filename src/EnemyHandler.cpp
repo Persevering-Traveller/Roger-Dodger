@@ -1,15 +1,5 @@
 #include "EnemyHandler.h"
 
-EnemyHandler::EnemyHandler()
-{
-
-}
-
-EnemyHandler::~EnemyHandler()
-{
-
-}
-
 void EnemyHandler::init(std::string fileLoc)
 {
     if(!sharedTexture.loadFromFile(fileLoc))
@@ -30,11 +20,6 @@ void EnemyHandler::updatePool()
     {
         enemy.update();
     }
-}
-
-void EnemyHandler::drawPool()
-{
-    // call each enemy's draw
 }
 
 int EnemyHandler::getPoolSize()

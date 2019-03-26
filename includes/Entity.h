@@ -5,10 +5,9 @@
 class Entity
 {
     public:
-        Entity();
-        virtual ~Entity();
-        virtual void update();
-        virtual void draw(); //TODO: Consider deleting
+        // No need for De/Constructors, everything
+        // will be set up properly in its children
+        virtual void update() = 0;
         sf::Sprite getSprite();
         void setSprite(std::string fileLocation);
 
