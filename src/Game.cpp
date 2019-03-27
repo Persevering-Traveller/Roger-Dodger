@@ -81,8 +81,6 @@ void Game::run()
         update();
         draw();
     }
-
-    quit();
     window->close();
 }
 
@@ -180,11 +178,6 @@ void Game::reset()
     gameState = GAME_STATE::PLAYING;
     score = 0;
     timer = 0;
-}
-
-void Game::quit()
-{
-    // Nothing to really do right now. Deconstructor handles most of it.
 }
 
 void Game::drawPlayScreen()

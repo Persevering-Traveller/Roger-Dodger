@@ -15,7 +15,6 @@ class Game
 
         void init();
         void run();
-        void quit();
 
     private:
         int windowWidth, windowHeight;
