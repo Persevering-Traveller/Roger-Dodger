@@ -69,7 +69,7 @@ void Game::init()
         scoreText.setPosition(250, 30);
         startText.setPosition(220, 200);
         pauseText.setPosition(280, 200);
-        gameoverText.setPosition(200, 200);
+        gameoverText.setPosition(200, 160);
     }
     
 }
