@@ -1,6 +1,5 @@
 #include "Game.h"
 #include <SFML/Graphics.hpp>
-//#include <SFML/Audio.hpp>
 
 Game::Game()
 {
@@ -76,6 +75,13 @@ void Game::init()
     if(!gameplayMusic.openFromFile("./assets/neogauge.ogg"))
         printf("Problem loading music!\n");
     
+    if(!buffer.loadFromFile("./assets/hurt.wav"))
+        printf("Problem loading sound effect!\n");
+    else
+    {
+        hurtSound.setBuffer(buffer);
+    }
+    
 }
 
 void Game::run()
@@ -141,7 +147,10 @@ void Game::update()
             if(player->getSprite().getGlobalBounds().intersects(enemyBounds))
             {
                 player->hit();
-                //hurtSound.play();
+                // Another if guard to keep from playing the sound every single
+                // frame the player is hitting an enemy
+                if(player->getInvincibilityTimer() == 0)
+                    hurtSound.play();
             }
         }
         

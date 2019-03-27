@@ -50,6 +50,7 @@ class Game
         sf::Text pauseText;
         sf::Text gameoverText;
 
+        sf::SoundBuffer buffer;
         sf::Sound hurtSound;
         sf::Music gameplayMusic;
 
