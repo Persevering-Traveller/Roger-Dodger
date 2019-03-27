@@ -1,5 +1,5 @@
 CC=g++
-PKG_CONFIG=`pkg-config --cflags --libs sfml-window sfml-graphics`
+PKG_CONFIG=`pkg-config --cflags --libs sfml-window sfml-graphics sfml-audio`
 STANDARD=-std=c++11
 BUILD_DIR=./build/
 INCLUDES=-I./includes/
