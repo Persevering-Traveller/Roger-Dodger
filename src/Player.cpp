@@ -83,3 +83,8 @@ void Player::reset()
     hurt = false;
     sprite.setPosition(position);
 }
+
+int Player::getInvincibilityTimer()
+{
+    return timer;
+}

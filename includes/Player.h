@@ -11,6 +11,7 @@ class Player : public Entity
         void init(std::string fileLoc);
         void update();
         void reset();
+        int getInvincibilityTimer();
 
     private:
         int health;
