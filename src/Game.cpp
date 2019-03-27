@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <SFML/Graphics.hpp>
+//#include <SFML/Audio.hpp>
 
 Game::Game()
 {
@@ -71,6 +72,9 @@ void Game::init()
         pauseText.setPosition(280, 200);
         gameoverText.setPosition(200, 160);
     }
+;
+    if(!gameplayMusic.openFromFile("./assets/neogauge.ogg"))
+        printf("Problem loading music!\n");
     
 }
 
@@ -99,9 +103,15 @@ void Game::update()
             if(event.key.code == sf::Keyboard::Escape)
             {
                 if(gameState == GAME_STATE::PLAYING)
+                {
                     gameState = GAME_STATE::PAUSE;
+                    gameplayMusic.pause();
+                }
                 else if(gameState == GAME_STATE::PAUSE)
+                {
                     gameState = GAME_STATE::PLAYING;
+                    gameplayMusic.play();
+                }
                 else if(gameState == GAME_STATE::START || gameState == GAME_STATE::GAME_OVER)
                     isRunning = false; // Close window if they hit escape at the start
             }
@@ -119,12 +129,20 @@ void Game::update()
 
     if(gameState == GAME_STATE::PLAYING)
     {
+        // This if guard is needed, otherwise it will attempt to start the music
+        // ever frame and cause a segmentation fault!!
+        if(gameplayMusic.getStatus() != sf::SoundSource::Status::Playing)
+            gameplayMusic.play();
+        
         // Collision testing
         for(int i = 0; i < enemyHandler->getPoolSize(); i++)
         {
             sf::Rect<float> enemyBounds(enemyHandler->getEnemy(i)->getSprite().getGlobalBounds());
             if(player->getSprite().getGlobalBounds().intersects(enemyBounds))
+            {
                 player->hit();
+                //hurtSound.play();
+            }
         }
         
         player->update();
@@ -145,6 +163,13 @@ void Game::update()
         }
         
         enemyHandler->updatePool();
+    }
+    else if(gameState == GAME_STATE::GAME_OVER)
+    {
+        // Another necessary if guard to not try to do this
+        // every frame
+        if(gameplayMusic.getStatus() != sf::SoundSource::Status::Stopped)
+            gameplayMusic.stop();
     }
 }
 

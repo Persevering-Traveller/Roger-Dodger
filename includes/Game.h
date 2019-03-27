@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "Player.h"
 #include "EnemyHandler.h"
 
@@ -48,6 +49,9 @@ class Game
         sf::Text startText;
         sf::Text pauseText;
         sf::Text gameoverText;
+
+        sf::Sound hurtSound;
+        sf::Music gameplayMusic;
 
         
 };
