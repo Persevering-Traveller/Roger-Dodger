@@ -9,11 +9,10 @@ Rodger Dodger is just a simple dodger game (dodge falling blocks and survive as 
 * a start, playing, and game over screen
 * pausing and restarting
 * background music when playing
+* sound effect for being hit
 
 ## What I think I'd like to add:
-* sound effect for being hit
 * your score increases when you're close to a falling block, but don't touch it.
-* sprites(? I kind of like the simple look of it though)
 
 ## Credits
 Background Music:
