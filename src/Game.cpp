@@ -16,23 +16,13 @@ Game::Game()
     gameoverString = "GAME OVER\nENTER TO TRY AGAIN\nESCAPE TO CLOSE";
 }
 
-Game::~Game()
-{
-    delete window;
-    delete player;
-    delete enemyHandler;
-}
-
 void Game::init()
 {
-    window = new sf::RenderWindow(sf::VideoMode(windowWidth, windowHeight), windowName);
-    window->setFramerateLimit(fpsLimit);
+    window.create(sf::VideoMode(windowWidth, windowHeight), windowName);
+    window.setFramerateLimit(fpsLimit);
 
-    player = new Player();
-    player->init("./assets/Player.png");
-
-    enemyHandler = new EnemyHandler();
-    enemyHandler->init("./assets/Enemy.png");
+    player.init("./assets/Player.png");
+    enemyHandler.init("./assets/Enemy.png");
 
     pauseScreen.setSize(sf::Vector2f(640, 480));
     pauseScreen.setFillColor(sf::Color(200, 200, 200, 128));
@@ -47,7 +37,7 @@ void Game::init()
         pauseText.setFont(font);
         gameoverText.setFont(font);
 
-        hud.setString("Hits Left: " + std::to_string(player->getHealth()));
+        hud.setString("Hits Left: " + std::to_string(player.getHealth()));
         scoreText.setString("SCORE: " + std::to_string(score));
         startText.setString("ROGER DODGER\nPRESS ENTER");
         pauseText.setString("PAUSE");
@@ -91,13 +81,13 @@ void Game::run()
         update();
         draw();
     }
-    window->close();
+    window.close();
 }
 
 void Game::update()
 {
     sf::Event event;
-    while(window->pollEvent(event))
+    while(window.pollEvent(event))
     {
         if(event.type == sf::Event::Closed)
         {
@@ -141,23 +131,23 @@ void Game::update()
             gameplayMusic.play();
         
         // Collision testing
-        for(int i = 0; i < enemyHandler->getPoolSize(); i++)
+        for(int i = 0; i < enemyHandler.getPoolSize(); i++)
         {
-            sf::Rect<float> enemyBounds(enemyHandler->getEnemy(i)->getSprite().getGlobalBounds());
-            if(player->getSprite().getGlobalBounds().intersects(enemyBounds))
+            sf::Rect<float> enemyBounds(enemyHandler.getEnemy(i)->getSprite().getGlobalBounds());
+            if(player.getSprite().getGlobalBounds().intersects(enemyBounds))
             {
-                player->hit();
+                player.hit();
                 // Another if guard to keep from playing the sound every single
                 // frame the player is hitting an enemy
-                if(player->getInvincibilityTimer() == 0)
+                if(player.getInvincibilityTimer() == 0)
                     hurtSound.play();
             }
         }
         
-        player->update();
-        hud.setString("Hits Left: " + std::to_string(player->getHealth()));
+        player.update();
+        hud.setString("Hits Left: " + std::to_string(player.getHealth()));
         scoreText.setString("SCORE: " + std::to_string(score));
-        if(player->getHealth() <= 0)
+        if(player.getHealth() <= 0)
         {
             gameState = GAME_STATE::GAME_OVER; // change to game over screen
             gameoverText.setString(gameoverString + "\n\nFINAL SCORE: " + std::to_string(score));
@@ -171,7 +161,7 @@ void Game::update()
             }
         }
         
-        enemyHandler->updatePool();
+        enemyHandler.updatePool();
     }
     else if(gameState == GAME_STATE::GAME_OVER)
     {
@@ -184,7 +174,7 @@ void Game::update()
 
 void Game::draw()
 {
-    window->clear();
+    window.clear();
     switch(gameState)
     {
         case GAME_STATE::START:
@@ -202,13 +192,13 @@ void Game::draw()
             drawGameOverScreen();
             break;
     }
-    window->display();
+    window.display();
 }
 
 void Game::reset()
 {
-    player->reset();
-    enemyHandler->resetPool();
+    player.reset();
+    enemyHandler.resetPool();
     gameState = GAME_STATE::PLAYING;
     score = 0;
     timer = 0;
@@ -216,31 +206,31 @@ void Game::reset()
 
 void Game::drawPlayScreen()
 {
-    for(int i = 0; i < enemyHandler->getPoolSize(); i++)
+    for(int i = 0; i < enemyHandler.getPoolSize(); i++)
     {
-        window->draw(enemyHandler->getEnemy(i)->getSprite());
+        window.draw(enemyHandler.getEnemy(i)->getSprite());
     }
-    window->draw(player->getSprite());
-    window->draw(scoreText);
-    window->draw(hud);
+    window.draw(player.getSprite());
+    window.draw(scoreText);
+    window.draw(hud);
 }
 
 // Draw a grey translucent rectangle over screen
 // draw the text PAUSED
 void Game::drawPauseScreen()
 {
-    window->draw(pauseScreen);
-    window->draw(pauseText);
+    window.draw(pauseScreen);
+    window.draw(pauseText);
 }
 
 // Show title screen
 void Game::drawStartScreen()
 {
-    window->draw(startText);
+    window.draw(startText);
 }
 
 // Draw game over text
 void Game::drawGameOverScreen()
 {
-    window->draw(gameoverText);
+    window.draw(gameoverText);
 }

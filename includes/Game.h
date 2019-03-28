@@ -11,8 +11,7 @@ class Game
 {
     public:
         Game();
-        virtual ~Game();
-        sf::RenderWindow *window;
+        sf::RenderWindow window;
 
         void init();
         void run();
@@ -39,8 +38,8 @@ class Game
         void drawStartScreen();
         void drawGameOverScreen();
 
-        Player *player;
-        EnemyHandler *enemyHandler;
+        Player player;
+        EnemyHandler enemyHandler;
 
         sf::RectangleShape pauseScreen;
         sf::Font font;
