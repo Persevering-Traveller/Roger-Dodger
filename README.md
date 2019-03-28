@@ -1,7 +1,7 @@
 # Roger Dodger
 Roger Dodger is just a simple dodger game (dodge falling blocks and survive as long as possible) to familiarize myself with C++. This project uses the SFML framework.
 
-## Currently it has:
+## Features:
 * score points
 * hit points
 * a hud to show both the score and HP left
@@ -10,8 +10,6 @@ Roger Dodger is just a simple dodger game (dodge falling blocks and survive as l
 * pausing and restarting
 * background music when playing
 * sound effect for being hit
-
-## What I think I'd like to add:
 * your score increases when you're close to a falling block, but don't touch it.
 
 ## Credits
