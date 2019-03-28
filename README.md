@@ -1,5 +1,5 @@
 # Roger Dodger
-Rodger Dodger is just a simple dodger game (dodge falling blocks and survive as long as possible) to familiarize myself with C++. This project uses the SFML framework.
+Roger Dodger is just a simple dodger game (dodge falling blocks and survive as long as possible) to familiarize myself with C++. This project uses the SFML framework.
 
 ## Currently it has:
 * score points
