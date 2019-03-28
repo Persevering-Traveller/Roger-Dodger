@@ -68,9 +68,7 @@ void Game::init()
     if(!buffer.loadFromFile("./assets/hurt.wav"))
         printf("Problem loading sound effect!\n");
     else
-    {
         hurtSound.setBuffer(buffer);
-    }
     
 }
 
@@ -133,15 +131,32 @@ void Game::update()
         // Collision testing
         for(int i = 0; i < enemyHandler.getPoolSize(); i++)
         {
+            // Get actual enemy bounding box based on its sprite
             sf::Rect<float> enemyBounds(enemyHandler.getEnemy(i)->getSprite().getGlobalBounds());
-            if(player.getSprite().getGlobalBounds().intersects(enemyBounds))
+            // If the player intersects its edge (a rect that also contains its bounding box)
+            if(player.getSprite().getGlobalBounds().intersects(enemyHandler.getEnemy(i)->getEdge()))
             {
-                player.hit();
-                // Another if guard to keep from playing the sound every single
-                // frame the player is hitting an enemy
-                if(player.getInvincibilityTimer() == 0)
-                    hurtSound.play();
-            }
+                // As long as the player is only intersecting with its edge, not its bounding box
+                if(!player.getSprite().getGlobalBounds().intersects(enemyBounds))
+                {
+                    // If the enemy has not been touched by the player already
+                    if(!enemyHandler.getEnemy(i)->getTouchedEdge())
+                    {
+                        // Add points and make it touched
+                        score += 50;
+                        enemyHandler.getEnemy(i)->setTouchedEdge(true);
+                    }
+                }
+                else
+                {
+                    // Otherwise only hurt the player
+                    player.hit();
+                    // Another if guard to keep from playing the sound every single
+                    // frame the player is hitting an enemy
+                    if(player.getInvincibilityTimer() == 0)
+                        hurtSound.play();
+                }
+            }  
         }
         
         player.update();
@@ -156,9 +171,7 @@ void Game::update()
         {
             timer++;
             if(timer % scoreTickUp == 0)
-            {
                 score += 10;
-            }
         }
         
         enemyHandler.updatePool();
