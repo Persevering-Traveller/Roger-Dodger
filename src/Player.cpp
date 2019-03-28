@@ -81,6 +81,7 @@ void Player::reset()
     timer = 0;
     invicibilityTime = 60; // 1 second
     hurt = false;
+    sprite.setColor(sf::Color::White);
     sprite.setPosition(position);
 }
 
