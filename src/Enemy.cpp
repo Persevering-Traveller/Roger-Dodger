@@ -14,6 +14,13 @@ void Enemy::init(sf::Texture &tex)
 
 void Enemy::update()
 {
+    // Update the edge's location with its sprite
+    edge = sf::Rect<float>(sprite.getGlobalBounds().left - 5,
+                            sprite.getGlobalBounds().top,
+                            sprite.getGlobalBounds().width + 10,
+                            sprite.getGlobalBounds().height
+                            );
+
     // Make awake if the countdown timer finally  hits respawn time
     if(!awake && timer > RESPAWN_TIME)
         awake = true;
@@ -38,4 +45,25 @@ void Enemy::reset()
     sprite.setPosition(position);
     moveSpeed = (std::rand() % 10) + 1; // Random speed from 1 to 10
     timer = 0;
+    edge = sf::Rect<float>(sprite.getGlobalBounds().left - 5,
+                            sprite.getGlobalBounds().top,
+                            sprite.getGlobalBounds().width + 10,
+                            sprite.getGlobalBounds().height
+                            );
+    touchedEdge = false;
+}
+
+sf::Rect<float> Enemy::getEdge()
+{
+    return edge;
+}
+
+void Enemy::setTouchedEdge(bool touched)
+{
+    touchedEdge = touched;
+}
+
+bool Enemy::getTouchedEdge()
+{
+    return touchedEdge;
 }
