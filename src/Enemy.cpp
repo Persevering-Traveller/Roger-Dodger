@@ -2,8 +2,9 @@
 
 Enemy::Enemy()
 {
-    awake = true;
+    awake = false;
     reset(); // You can't reset something new, but it makes sense :)
+    timer = std::rand() % RESPAWN_TIME;
 }
 
 void Enemy::init(sf::Texture &tex)
